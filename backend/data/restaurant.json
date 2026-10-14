@@ -1,14 +1,14 @@
 {
   "nome": "Osteria BaCuLa",
-  "descrizione": "Cucina tradizionale italiana con pasta fresca fatta in casa e ingredienti di stagione.",
+  "descrizione": "Cucina romanesca, tutti i giorni pasta fresca fatta in casa e ingredienti di stagione.",
   "indirizzo": {
-    "via": "Via dei Glicini 12",
-    "cap": "20121",
-    "citta": "Milano",
-    "come_arrivare": "Metro M2 Lanza a 5 minuti a piedi; parcheggio convenzionato in Via dei Tigli 3 (gratuito per i clienti la sera)."
+    "via": "Via delle Acacie 122",
+    "cap": "00171",
+    "citta": "Roma",
+    "come_arrivare": "Metro C Gardenie a 10 minuti a piedi; Tram 5 Castani/Gelsi a 5 minuti a piedi; ampio parcheggio gratuito per i nostri clienti."
   },
   "contatti": {
-    "telefono": "+39 02 0000 0000",
+    "telefono": "+39 06 2575 8008",
     "email": "info@osteriabacula.example",
     "sito": "www.osteriabacula.example"
   },
@@ -29,9 +29,8 @@
     "Wi-Fi gratuito",
     "Locale accessibile in sedia a rotelle",
     "Seggioloni per bambini",
-    "Dehors esterno (da aprile a ottobre)",
     "Animali di piccola taglia ammessi",
-    "Pagamento con carta, bancomat e contanti"
+    "Pagamento con contanti, carta e bancomat (il POS potrebbe non funzionare)"
   ],
   "tavoli": [
     {"nome": "T1", "posti": 2, "zona": "sala"},
@@ -55,8 +54,8 @@
       {"nome": "Verdure grigliate", "descrizione": "Zucchine, melanzane e peperoni grigliati con olio EVO", "prezzo": 9.0, "allergeni": [], "vegetariano": true, "vegano": true, "senza_glutine": true}
     ],
     "primi": [
-      {"nome": "Risotto alla milanese", "descrizione": "Riso Carnaroli, zafferano e midollo", "prezzo": 15.0, "allergeni": ["latte", "sedano"], "vegetariano": false, "vegano": false, "senza_glutine": true},
-      {"nome": "Tagliatelle al ragù", "descrizione": "Pasta fresca all'uovo con ragù di manzo cotto 6 ore", "prezzo": 14.0, "allergeni": ["glutine", "uova", "sedano"], "vegetariano": false, "vegano": false, "senza_glutine": false},
+      {"nome": "Risotto con l'ossobuco", "descrizione": "Riso Carnaroli e ossobuco", "prezzo": 15.0, "allergeni": ["latte", "sedano"], "vegetariano": false, "vegano": false, "senza_glutine": true},
+      {"nome": "Tagliatelle al ragù", "descrizione": "Pasta fresca all'uovo con ragù di manzo", "prezzo": 14.0, "allergeni": ["glutine", "uova", "sedano"], "vegetariano": false, "vegano": false, "senza_glutine": false},
       {"nome": "Spaghetti alla carbonara", "descrizione": "Guanciale croccante, tuorlo e pecorino romano", "prezzo": 13.0, "allergeni": ["glutine", "uova", "latte"], "vegetariano": false, "vegano": false, "senza_glutine": false},
       {"nome": "Gnocchi al pomodoro e basilico", "descrizione": "Gnocchi di patate fatti in casa", "prezzo": 12.0, "allergeni": ["glutine"], "vegetariano": true, "vegano": true, "senza_glutine": false}
     ],
