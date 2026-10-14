@@ -2,14 +2,20 @@
 # Uso:  .\setup.ps1          (solo CPU)
 #       .\setup.ps1 -Gpu     (aggiunge le librerie CUDA per usare una GPU NVIDIA: riconoscimento molto più veloce)
 param([string]$Python = "python", [switch]$Gpu)
-$ErrorActionPreference = "Stop"
+# pip, Piper e Whisper scrivono messaggi normali su stderr: l'esito si controlla col codice d'uscita.
+$ErrorActionPreference = "Continue"
 Set-Location $PSScriptRoot
 
-if (-not (Test-Path .venv)) { Invoke-Expression "$Python -m venv .venv" }
+function Step([string]$What, [scriptblock]$Cmd) {
+    & $Cmd
+    if ($LASTEXITCODE -ne 0) { Write-Host "`nERRORE durante: $What" -ForegroundColor Red; exit 1 }
+}
+
 $py = ".\.venv\Scripts\python.exe"
-& $py -m pip install --upgrade pip
-& $py -m pip install -r requirements.txt
-if ($Gpu) { & $py -m pip install nvidia-cublas-cu12 "nvidia-cudnn-cu12>=9,<10" }
+if (-not (Test-Path $py)) { Step "creazione ambiente Python" { Invoke-Expression "$Python -m venv .venv" } }
+Step "aggiornamento pip" { & $py -m pip install --upgrade pip }
+Step "installazione librerie" { & $py -m pip install -r requirements.txt }
+if ($Gpu) { Step "installazione librerie CUDA" { & $py -m pip install nvidia-cublas-cu12 "nvidia-cudnn-cu12>=9,<10" } }
 
 if (-not (Test-Path .env)) {
     Copy-Item .env.example .env
@@ -17,10 +23,11 @@ if (-not (Test-Path .env)) {
 }
 
 Write-Host "Scarico la voce italiana (Piper)..."
-& $py -m piper.download_voices --download-dir models it_IT-paola-medium
+Step "download voce Piper" { & $py -m piper.download_voices --download-dir models it_IT-paola-medium }
 
-$whisper = (Select-String -Path .env -Pattern '^WHISPER_MODEL=(.*)$').Matches[0].Groups[1].Value
+$match = Select-String -Path .env -Pattern '^WHISPER_MODEL=(.+)$'
+$whisper = if ($match) { $match.Matches[0].Groups[1].Value.Trim() } else { "small" }
 Write-Host "Scarico il modello Whisper '$whisper'..."
-& $py -c "from faster_whisper import WhisperModel; WhisperModel('$whisper', device='cpu', compute_type='int8')"
+Step "download modello Whisper" { & $py -c "from faster_whisper import WhisperModel; WhisperModel('$whisper', device='cpu', compute_type='int8')" }
 
-Write-Host "Pronto. Avvia con .\run.ps1" -ForegroundColor Green
+Write-Host "`nPronto. Avvia con .\run.ps1" -ForegroundColor Green

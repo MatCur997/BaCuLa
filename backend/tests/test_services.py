@@ -97,3 +97,8 @@ def test_overview(service):
     assert ov["turni"]["cena"]["coperti"] == 4
     assert ov["turni"]["pranzo"]["prenotazioni"] == 1
     assert service.overview("2026-10-19")["chiuso"] is True
+
+
+def test_info_lists_opening_days(restaurant):
+    hours = restaurant.info("orari")["orari"]
+    assert "lunedì" not in hours["giorni_apertura"] and "domenica" in hours["giorni_apertura"]

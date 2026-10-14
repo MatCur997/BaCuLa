@@ -76,6 +76,8 @@ class Restaurant:
             "contatti": {"contatti": d["contatti"]},
             "orari": {
                 "orari": {
+                    # Elenco esplicito: con i soli giorni di chiusura l'LLM a volte diceva "aperti tutti i giorni".
+                    "giorni_apertura": [g for g in WEEKDAYS if g not in hours["giorni_chiusura"]],
                     "giorni_chiusura": hours["giorni_chiusura"],
                     "chiusure_straordinarie": hours.get("chiusure_straordinarie", []),
                     "turni": hours["turni"],
