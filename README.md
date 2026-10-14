@@ -33,25 +33,24 @@ Un turno di conversazione funziona così:
 1. Il client (CHAT o VOICE) sostituisce i dati personali con segnaposto come `[NOME_1]` o `[TELEFONO_1]`.
 2. Il client invia il testo al BE.
 3. Il BE passa il testo all'LLM, che sceglie quale strumento (tool) usare.
-4. Il BE esegue la logica di prenotazione in Python e risponde.
+4. Il BE esegue la logica di prenotazione e risponde.
 5. Il client rimette i dati reali al posto dei segnaposto e mostra o pronuncia la risposta.
 
 ## Decisioni tecniche
 
 | # | Decisione | Pro | Contro |
 |---|---|---|---|
-| 1 | **LLM con tool calling.** L'LLM decide *cosa* fare; la logica di prenotazione è codice Python testato ([services.py](backend/app/services.py)). | L'LLM non scrive SQL e non inventa disponibilità, quindi niente doppie prenotazioni. Logica testabile in isolamento. | Serve un modello che gestisca bene i tool, e il prompt va tarato sul modello (vedi decisione 8). |
+| 1 | **LLM con tool calling.** L'LLM decide *cosa* fare; la logica di prenotazione è in codice Python testato ([services.py](backend/app/services.py)). | L'LLM non scrive SQL e non inventa disponibilità, quindi niente doppie prenotazioni. Logica testabile in isolamento. | Serve un modello che gestisca bene i tool, e il prompt va tarato sul modello (vedi decisione 8). |
 | 2 | **Conferma imposta dal codice.** La prima chiamata a `create/modify/cancel_booking` è solo una simulazione con riepilogo. La scrittura avviene solo se il cliente risponde e l'LLM richiama lo stesso strumento con gli stessi parametri. | Un LLM piccolo che "dimentica" di chiedere conferma non può prenotare o cancellare al posto del cliente. Se l'LLM sostiene di aver completato un'operazione solo simulata, la sua risposta viene sostituita da un riepilogo generato dal codice. | A volte il cliente deve confermare due volte. |
 | 3 | **Pseudonimizzazione sul client** ([pii.py](shared/bacula_shared/pii.py)), con regole per email, telefono, codice fiscale, IBAN, carta e nomi introdotti da frasi tipo "mi chiamo…". spaCy è opzionale. | Il BE non riceve mai dati personali. Nessun modello extra da installare. Il cliente vede comunque il proprio nome nelle risposte. | Un nome senza frase introduttiva ("prenota per Rossi") può sfuggire alle regole; con spaCy si migliora. |
-| 4 | **Codice prenotazione a 6 cifre** come unica identità del cliente. | Coerente con la decisione 3. Facile da dettare a voce (il TTS lo legge cifra per cifra). | Il ristoratore vede un codice, non un nome. Un milione di combinazioni è sufficiente per una demo, non per la produzione (servirebbe un limite ai tentativi). |
-| 5 | **Un solo endpoint `/api/chat`** usato sia da CHAT sia da VOICE, con la sessione mantenuta sul BE. | Client leggeri e intercambiabili; la logica non è duplicata. | Sessioni in memoria: un riavvio del BE chiude le conversazioni in corso (le prenotazioni restano). |
-| 6 | **SQLite** con transazioni `BEGIN IMMEDIATE` e un **indice UNIQUE parziale** `(tavolo, data, turno)`. | Doppia prenotazione impossibile anche a livello di DB, nessun server DB da gestire. | Un solo scrittore alla volta: va bene per un ristorante. |
+| 4 | **Codice prenotazione a 6 cifre** come unica identità del cliente. | Coerente con la decisione 3. Facile da dettare a voce. | Il ristoratore vede un codice, non un nome. Un milione di combinazioni è sufficiente per una demo, non per la produzione (servirebbe un limite ai tentativi). |
+| 5 | **Un solo endpoint `/api/chat`** usato sia da CHAT sia da VOICE, con la sessione mantenuta sul BE. | Client leggeri e intercambiabili; la logica non è duplicata. | Sessioni in memoria: un riavvio del BE chiude le conversazioni in corso. |
+| 6 | **SQLite** con transazioni `BEGIN IMMEDIATE` e un **indice UNIQUE parziale** `(tavolo, data, turno)`. | Doppia prenotazione impossibile anche a livello di DB, nessun server DB da gestire. | Un solo scrittore alla volta. |
 | 7 | **Ollama + `gemma4` (7.5B)**, con thinking attivo. | Installazione semplice, già pronto per i tool. Circa 2–5 s per turno su una GPU da 12 GB. | Il thinking aggiunge qualche secondo. Configurabile con `OLLAMA_THINK`. |
 | 8 | **Prompt di sistema breve**, con l'istruzione "chiama subito lo strumento" in fondo. | Misurato su 6 scenari × 3 ripetizioni: 18/18 chiamate corrette, contro 3/18 del prompt lungo iniziale. | Va rimisurato se si cambia modello. |
 | 9 | **Voce: Whisper `small` + Piper `it_IT-paola-medium`**, decodifica audio con PyAV. | Tutto locale. Su GPU la trascrizione richiede circa 1 s, la sintesi circa 0,2 s. | Su sola CPU Whisper `small` impiega circa 8 s: in quel caso conviene `WHISPER_MODEL=base`. |
-| 10 | **Monorepo pubblico** con `shared/` installato in modalità editable. | Contratto API e filtro dei dati personali in un solo posto. | Ogni macchina clona anche le cartelle che non usa. |
 
-## Installazione (una volta per macchina)
+## Installazione
 
 Prerequisiti: Windows, Python ≥ 3.12 (testato con 3.14), Git. Su BE serve anche [Ollama](https://ollama.com/download).
 
@@ -116,7 +115,7 @@ python -m pytest -q
 
 Verifiche end-to-end fatte con il modello reale:
 
-- **Conversazione completa** (prenota → conferma → modifica → conferma → cancella → conferma), controllando lo stato reale del DB dopo ogni passo: **8 run su 8 corretti**.
+- **Conversazione completa** (prenota → conferma → modifica → conferma → cancella → conferma), controllando lo stato reale del DB dopo ogni passo.
 - **Giro vocale completo**: Piper genera la voce del cliente, poi Whisper, filtro PII, BE e risposta vocale. Prenotazione creata correttamente, circa 5 s per turno su GPU.
 
 ## Limiti noti
