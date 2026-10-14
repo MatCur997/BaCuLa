@@ -1,0 +1,85 @@
+{
+  "nome": "Osteria BaCuLa",
+  "descrizione": "Cucina tradizionale italiana con pasta fresca fatta in casa e ingredienti di stagione.",
+  "indirizzo": {
+    "via": "Via dei Glicini 12",
+    "cap": "20121",
+    "citta": "Milano",
+    "come_arrivare": "Metro M2 Lanza a 5 minuti a piedi; parcheggio convenzionato in Via dei Tigli 3 (gratuito per i clienti la sera)."
+  },
+  "contatti": {
+    "telefono": "+39 02 0000 0000",
+    "email": "info@osteriabacula.example",
+    "sito": "www.osteriabacula.example"
+  },
+  "orari": {
+    "giorni_chiusura": ["lunedì"],
+    "chiusure_straordinarie": ["2026-12-25", "2026-12-26", "2027-01-01"],
+    "intervallo_prenotazioni_minuti": 30,
+    "turni": {
+      "pranzo": {"primo_arrivo": "12:30", "ultimo_arrivo": "14:00", "chiusura": "15:00"},
+      "cena": {"primo_arrivo": "19:30", "ultimo_arrivo": "22:00", "chiusura": "23:30"}
+    }
+  },
+  "prenotazioni": {
+    "max_persone": 8,
+    "giorni_anticipo_max": 60
+  },
+  "servizi": [
+    "Wi-Fi gratuito",
+    "Locale accessibile in sedia a rotelle",
+    "Seggioloni per bambini",
+    "Dehors esterno (da aprile a ottobre)",
+    "Animali di piccola taglia ammessi",
+    "Pagamento con carta, bancomat e contanti"
+  ],
+  "tavoli": [
+    {"nome": "T1", "posti": 2, "zona": "sala"},
+    {"nome": "T2", "posti": 2, "zona": "sala"},
+    {"nome": "T3", "posti": 2, "zona": "dehors"},
+    {"nome": "T4", "posti": 2, "zona": "dehors"},
+    {"nome": "T5", "posti": 4, "zona": "sala"},
+    {"nome": "T6", "posti": 4, "zona": "sala"},
+    {"nome": "T7", "posti": 4, "zona": "sala"},
+    {"nome": "T8", "posti": 4, "zona": "dehors"},
+    {"nome": "T9", "posti": 4, "zona": "dehors"},
+    {"nome": "T10", "posti": 6, "zona": "sala"},
+    {"nome": "T11", "posti": 6, "zona": "sala"},
+    {"nome": "T12", "posti": 8, "zona": "saletta"}
+  ],
+  "menu": {
+    "antipasti": [
+      {"nome": "Tagliere di salumi e formaggi", "descrizione": "Selezione di salumi e formaggi lombardi con mostarda", "prezzo": 14.0, "allergeni": ["latte"], "vegetariano": false, "vegano": false, "senza_glutine": true},
+      {"nome": "Vitello tonnato", "descrizione": "Girello di vitello con salsa tonnata e capperi", "prezzo": 13.0, "allergeni": ["uova", "pesce"], "vegetariano": false, "vegano": false, "senza_glutine": true},
+      {"nome": "Burrata e pomodorini", "descrizione": "Burrata pugliese, pomodorini confit e basilico", "prezzo": 11.0, "allergeni": ["latte"], "vegetariano": true, "vegano": false, "senza_glutine": true},
+      {"nome": "Verdure grigliate", "descrizione": "Zucchine, melanzane e peperoni grigliati con olio EVO", "prezzo": 9.0, "allergeni": [], "vegetariano": true, "vegano": true, "senza_glutine": true}
+    ],
+    "primi": [
+      {"nome": "Risotto alla milanese", "descrizione": "Riso Carnaroli, zafferano e midollo", "prezzo": 15.0, "allergeni": ["latte", "sedano"], "vegetariano": false, "vegano": false, "senza_glutine": true},
+      {"nome": "Tagliatelle al ragù", "descrizione": "Pasta fresca all'uovo con ragù di manzo cotto 6 ore", "prezzo": 14.0, "allergeni": ["glutine", "uova", "sedano"], "vegetariano": false, "vegano": false, "senza_glutine": false},
+      {"nome": "Spaghetti alla carbonara", "descrizione": "Guanciale croccante, tuorlo e pecorino romano", "prezzo": 13.0, "allergeni": ["glutine", "uova", "latte"], "vegetariano": false, "vegano": false, "senza_glutine": false},
+      {"nome": "Gnocchi al pomodoro e basilico", "descrizione": "Gnocchi di patate fatti in casa", "prezzo": 12.0, "allergeni": ["glutine"], "vegetariano": true, "vegano": true, "senza_glutine": false}
+    ],
+    "secondi": [
+      {"nome": "Cotoletta alla milanese", "descrizione": "Costoletta di vitello con l'osso impanata e fritta nel burro", "prezzo": 26.0, "allergeni": ["glutine", "uova", "latte"], "vegetariano": false, "vegano": false, "senza_glutine": false},
+      {"nome": "Ossobuco con gremolada", "descrizione": "Ossobuco di vitello brasato, servito con polenta", "prezzo": 24.0, "allergeni": ["sedano"], "vegetariano": false, "vegano": false, "senza_glutine": true},
+      {"nome": "Branzino al forno", "descrizione": "Filetto di branzino con patate e olive taggiasche", "prezzo": 22.0, "allergeni": ["pesce"], "vegetariano": false, "vegano": false, "senza_glutine": true},
+      {"nome": "Parmigiana di melanzane", "descrizione": "Melanzane fritte, pomodoro, mozzarella e parmigiano", "prezzo": 15.0, "allergeni": ["latte"], "vegetariano": true, "vegano": false, "senza_glutine": true}
+    ],
+    "contorni": [
+      {"nome": "Patate al forno", "descrizione": "Con rosmarino", "prezzo": 5.0, "allergeni": [], "vegetariano": true, "vegano": true, "senza_glutine": true},
+      {"nome": "Insalata mista", "descrizione": "Verdure di stagione", "prezzo": 5.0, "allergeni": [], "vegetariano": true, "vegano": true, "senza_glutine": true}
+    ],
+    "dolci": [
+      {"nome": "Tiramisù della casa", "descrizione": "Savoiardi, mascarpone e caffè", "prezzo": 7.0, "allergeni": ["glutine", "uova", "latte"], "vegetariano": true, "vegano": false, "senza_glutine": false},
+      {"nome": "Panna cotta ai frutti di bosco", "descrizione": "", "prezzo": 6.0, "allergeni": ["latte"], "vegetariano": true, "vegano": false, "senza_glutine": true},
+      {"nome": "Sorbetto al limone", "descrizione": "", "prezzo": 5.0, "allergeni": [], "vegetariano": true, "vegano": true, "senza_glutine": true}
+    ],
+    "bevande": [
+      {"nome": "Acqua naturale o frizzante (75 cl)", "descrizione": "", "prezzo": 3.0, "allergeni": [], "vegetariano": true, "vegano": true, "senza_glutine": true},
+      {"nome": "Vino della casa (1/4 l)", "descrizione": "Rosso o bianco", "prezzo": 6.0, "allergeni": ["solfiti"], "vegetariano": true, "vegano": true, "senza_glutine": true},
+      {"nome": "Birra artigianale (33 cl)", "descrizione": "", "prezzo": 6.0, "allergeni": ["glutine"], "vegetariano": true, "vegano": true, "senza_glutine": false},
+      {"nome": "Caffè", "descrizione": "", "prezzo": 2.0, "allergeni": [], "vegetariano": true, "vegano": true, "senza_glutine": true}
+    ]
+  }
+}

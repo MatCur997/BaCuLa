@@ -1,0 +1,28 @@
+# Ambienti e cache Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+
+# Segreti e configurazione locale (il repo è pubblico!)
+.env
+
+# Database: contiene prenotazioni reali
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Modelli scaricati (GB, non vanno versionati)
+models/
+*.onnx
+*.onnx.json
+*.gguf
+
+# IDE / OS
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store

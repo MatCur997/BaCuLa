@@ -1,0 +1,11 @@
+[server]
+# Il chat-bot è usato su questa macchina: non serve esporlo sulla rete.
+address = "127.0.0.1"
+port = 8501
+headless = true
+
+[browser]
+gatherUsageStats = false
+
+[theme]
+primaryColor = "#9c3d2e"
