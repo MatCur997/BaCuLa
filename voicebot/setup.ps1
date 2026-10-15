@@ -14,7 +14,7 @@ function Step([string]$What, [scriptblock]$Cmd) {
 $py = ".\.venv\Scripts\python.exe"
 if (-not (Test-Path $py)) { Step "creazione ambiente Python" { Invoke-Expression "$Python -m venv .venv" } }
 Step "aggiornamento pip" { & $py -m pip install --upgrade pip }
-Step "installazione librerie" { & $py -m pip install -r requirements.txt }
+Step "installazione librerie" { & $py -m pip install --pre -r requirements.txt }
 if ($Gpu) { Step "installazione librerie CUDA" { & $py -m pip install nvidia-cublas-cu12 "nvidia-cudnn-cu12>=9,<10" } }
 
 if (-not (Test-Path .env)) {
