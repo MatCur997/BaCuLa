@@ -40,8 +40,7 @@ Regole:
 IMPORTANTE: quando ti serve un'informazione o devi fare un'operazione, chiama subito lo strumento
 in questo stesso turno. Non scrivere mai frasi come "verifico", "controllo" o "procedo" senza chiamarlo.
 Un'operazione è avvenuta solo se lo strumento risponde "eseguita": true."""
-# Nota: prompt volutamente breve e con l'istruzione sugli strumenti in fondo. Con gemma4 (7.5B)
-# un prompt più lungo faceva "annunciare" le azioni invece di chiamare i tool (vedi README).
+
 
 
 class LLMError(Exception):

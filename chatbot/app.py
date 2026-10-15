@@ -1,7 +1,7 @@
 """Chat-bot di prenotazione (Streamlit). Avvio: streamlit run app.py
 
-Ogni messaggio dell'utente viene pseudonimizzato QUI, sulla macchina CHAT, prima di
-essere inviato al backend. I dati reali restano solo in memoria in questa sessione.
+Ogni messaggio dell'utente viene pseudonimizzato prima di
+essere inviato al backend. I dati reali restano solo in memoria nela sessione.
 """
 from __future__ import annotations
 
@@ -42,7 +42,7 @@ def new_conversation() -> None:
     st.session_state.session_id = uuid.uuid4().hex
     st.session_state.pseudo = Pseudonymizer()
     st.session_state.messages = [{"role": "assistant", "content": GREETING}]
-    st.session_state.sent_log = []  # ciò che è stato effettivamente inviato al server
+    st.session_state.sent_log = []  # ciò che è stato inviato al server
 
 
 if "session_id" not in st.session_state:

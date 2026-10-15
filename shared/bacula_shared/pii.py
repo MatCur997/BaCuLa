@@ -1,15 +1,14 @@
 """Pseudonimizzazione dei dati personali prima dell'invio al backend.
 
-Il testo dell'utente viene ripulito sul client (CHAT o VOICE): ogni dato
+Il testo dell'utente viene ripulito sul client: ogni dato
 personale è sostituito da un segnaposto come [NOME_1] o [TELEFONO_1].
-La mappa segnaposto -> valore reale resta solo in memoria sul client e
+La mappa 'segnaposto -> valore' rimane solamente in memoria sul client e
 serve a ripristinare i valori nella risposta mostrata all'utente.
-Il backend, quindi, non riceve mai un dato personale.
 
-Rilevamento basato su regole (nessuna dipendenza esterna):
+Rilevamento basato su regole:
 - email, telefono, codice fiscale, IBAN, carta di credito: espressioni regolari
 - nomi: frasi introduttive ("mi chiamo ...", "a nome di ...", "sono ...")
-Se spaCy e il modello it_core_news_sm sono installati, le entità PER
+Se spaCy e il modello 'it_core_news_sm' sono installati, le entità PER
 trovate dal modello si aggiungono a quelle delle regole.
 """
 from __future__ import annotations
